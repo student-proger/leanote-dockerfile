@@ -1,9 +1,4 @@
 FROM golang:1.11.2-alpine
-MAINTAINER Nyk Ma <i@nyk.ma>
-
-# golang:alpine :
-# ENV GOPATH /go
-# WORKDIR /go
 
 RUN apk --no-cache add wget ca-certificates && \
         wget https://github.com/leanote/leanote-all/archive/master.zip && \
@@ -13,7 +8,7 @@ RUN apk --no-cache add wget ca-certificates && \
         rm -r /go/src/github.com/leanote/leanote/mongodb_backup && \
         go install github.com/revel/cmd/revel
 
-EXPOSE 8080
+EXPOSE 9000
 
 CMD ["revel", "run", "github.com/leanote/leanote"]
 VOLUME ["/go/src/github.com/leanote/leanote/conf/app.conf", "/var/log"]

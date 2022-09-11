@@ -1,5 +1,4 @@
 FROM mongo:4-xenial
-MAINTAINER Nyk Ma <i@nyk.ma>
 
 RUN set -ex; \
         apt-get update; \

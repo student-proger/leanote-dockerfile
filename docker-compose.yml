@@ -1,20 +1,21 @@
 version: "2.1"
 services:
   leanote:
-    image: nykma/leanote:latest
+    image: r0wbh/leanote:latest
     # build:
     #   context: .
     #   dockerfile: Dockerfile
     volumes:
       - "./conf/app.conf:/go/src/github.com/leanote/leanote/conf/app.conf"
-      - './data/leanote/log:/var/log'
+      - '/var/log/leanote:/var/log'
+      - 'leanote-files:/go/src/github.com/leanote/leanote/files'
     ports:
-      - "8080:8080"
+      - "9000:9000"
     depends_on:
       - mongo
 
   mongo:
-    image: nykma/leanote-mongodb:latest
+    image: r0wbh/leanote-mongodb:latest
     # build:
     #   context: .
     #   dockerfile: Dockerfile.mongodb
@@ -24,4 +25,4 @@ services:
     healthcheck:
       test: "echo 'db.stats().ok' | mongo 127.0.0.1:27017/leanote --quiet"
     volumes:
-      - "./data/mongodb:/data/db"
+      - "leanote-db:/data/db"
